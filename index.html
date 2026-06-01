@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CPAPU | Solicitud de Información de Alquileres</title>
-
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
     <style>
         :root {
             --negro:       #0e0d0b;
@@ -21,382 +19,63 @@
             --exito:       #2e6b3e;
             --error:       #8a2f2f;
         }
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            background-color: var(--arena);
-            color: var(--texto);
-            font-family: 'DM Sans', sans-serif;
-            min-height: 100vh;
-        }
-
-        header {
-            background-color: var(--negro);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 70px 32px 60px;
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .header-tag {
-            display: inline-block;
-            border: 1px solid rgba(196,132,58,0.5);
-            color: var(--ocre-claro);
-            font-size: 0.72rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            padding: 6px 16px;
-            border-radius: 2px;
-            margin-bottom: 24px;
-        }
-
-        header h1 {
-            font-family: 'DM Serif Display', serif;
-            font-size: clamp(2.6rem, 6vw, 4rem);
-            color: #fff;
-            line-height: 1.1;
-            margin-bottom: 16px;
-        }
-
+        body { background-color: var(--arena); color: var(--texto); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
+        header { background-color: var(--negro); position: relative; overflow: hidden; }
+        .header-inner { max-width: 900px; margin: 0 auto; padding: 70px 32px 60px; position: relative; z-index: 2; text-align: center; }
+        .header-tag { display: inline-block; border: 1px solid rgba(196,132,58,0.5); color: var(--ocre-claro); font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; padding: 6px 16px; border-radius: 2px; margin-bottom: 24px; }
+        header h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.6rem, 6vw, 4rem); color: #fff; line-height: 1.1; margin-bottom: 16px; }
         header h1 em { color: var(--ocre); font-style: italic; }
-
-        header p {
-            color: rgba(255,255,255,0.6);
-            font-size: 1rem;
-            max-width: 520px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        .header-bar {
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--ocre), transparent);
-        }
-
-        main {
-            max-width: 760px;
-            margin: -20px auto 80px;
-            padding: 0 20px;
-        }
-
-        .card {
-            background: var(--crema);
-            border: 1px solid var(--borde);
-            border-radius: 16px;
-            padding: 44px 48px;
-            box-shadow: 0 24px 60px rgba(28,23,16,0.12);
-        }
-
-        .section-label {
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--ocre);
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-label::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--borde);
-        }
-
+        header p { color: rgba(255,255,255,0.6); font-size: 1rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+        .header-bar { height: 4px; background: linear-gradient(90deg, transparent, var(--ocre), transparent); }
+        main { max-width: 760px; margin: -20px auto 80px; padding: 0 20px; }
+        .card { background: var(--crema); border: 1px solid var(--borde); border-radius: 16px; padding: 44px 48px; box-shadow: 0 24px 60px rgba(28,23,16,0.12); }
+        .section-label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--ocre); font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section-label::after { content: ''; flex: 1; height: 1px; background: var(--borde); }
         .campo { margin-bottom: 20px; }
-
-        label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--texto-suave);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            background: #fff;
-            border: 1px solid var(--borde);
-            border-radius: 10px;
-            padding: 13px 16px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.95rem;
-            color: var(--texto);
-            transition: border-color 0.2s, box-shadow 0.2s;
-            outline: none;
-            appearance: none;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--ocre);
-            box-shadow: 0 0 0 3px rgba(196,132,58,0.15);
-        }
-
-        select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237a6a55' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            padding-right: 38px;
-        }
-
+        label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--texto-suave); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="number"], select, textarea { width: 100%; background: #fff; border: 1px solid var(--borde); border-radius: 10px; padding: 13px 16px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--texto); transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none; }
+        input:focus, select:focus, textarea:focus { border-color: var(--ocre); box-shadow: 0 0 0 3px rgba(196,132,58,0.15); }
+        select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237a6a55' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
         textarea { resize: vertical; min-height: 100px; }
-
-        .row-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        /* ── SELECTOR TIPOS ── */
-        .props-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 6px;
-        }
-
+        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .props-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 6px; }
         .prop-chip { position: relative; cursor: pointer; }
-
-        .prop-chip input[type="checkbox"] {
-            position: absolute; opacity: 0; width: 0; height: 0;
-        }
-
-        .prop-chip-label {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            padding: 14px 10px;
-            background: #fff;
-            border: 1.5px solid var(--borde);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-        }
-
+        .prop-chip input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+        .prop-chip-label { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 10px; background: #fff; border: 1.5px solid var(--borde); border-radius: 10px; cursor: pointer; transition: all 0.2s; text-align: center; }
         .prop-chip-label .icon { font-size: 1.5rem; }
-
-        .prop-chip-label span {
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--texto-suave);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .prop-chip input:checked + .prop-chip-label {
-            border-color: var(--ocre);
-            background: rgba(196,132,58,0.07);
-            box-shadow: 0 0 0 3px rgba(196,132,58,0.12);
-        }
-
+        .prop-chip-label span { font-size: 0.78rem; font-weight: 600; color: var(--texto-suave); text-transform: uppercase; letter-spacing: 0.5px; }
+        .prop-chip input:checked + .prop-chip-label { border-color: var(--ocre); background: rgba(196,132,58,0.07); box-shadow: 0 0 0 3px rgba(196,132,58,0.12); }
         .prop-chip input:checked + .prop-chip-label span { color: var(--ocre); }
-
-        /* ── CONTADOR ── */
-        .num-selector {
-            display: flex;
-            align-items: center;
-            border: 1px solid var(--borde);
-            border-radius: 10px;
-            overflow: hidden;
-            width: fit-content;
-        }
-
-        .num-btn {
-            background: #f0e8db;
-            border: none;
-            width: 42px;
-            height: 48px;
-            font-size: 1.3rem;
-            color: var(--texto-suave);
-            cursor: pointer;
-            transition: background 0.2s;
-            font-family: 'DM Sans', sans-serif;
-        }
-
+        .num-selector { display: flex; align-items: center; border: 1px solid var(--borde); border-radius: 10px; overflow: hidden; width: fit-content; }
+        .num-btn { background: #f0e8db; border: none; width: 42px; height: 48px; font-size: 1.3rem; color: var(--texto-suave); cursor: pointer; transition: background 0.2s; font-family: 'DM Sans', sans-serif; }
         .num-btn:hover { background: var(--borde); }
-
-        #numPropiedades {
-            width: 70px;
-            height: 48px;
-            border: none;
-            border-left: 1px solid var(--borde);
-            border-right: 1px solid var(--borde);
-            border-radius: 0;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--texto);
-            box-shadow: none;
-        }
-
+        #numPropiedades { width: 70px; height: 48px; border: none; border-left: 1px solid var(--borde); border-right: 1px solid var(--borde); border-radius: 0; text-align: center; font-size: 1.1rem; font-weight: 600; color: var(--texto); box-shadow: none; }
         #numPropiedades:focus { box-shadow: none; border-color: var(--borde); }
-
         .num-hint { font-size: 0.8rem; color: var(--texto-suave); margin-top: 8px; }
-
-        /* ── ZONAS ── */
         .zonas-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
-
         .zona-tag { position: relative; }
-
-        .zona-tag input[type="checkbox"] {
-            position: absolute; opacity: 0; width: 0; height: 0;
-        }
-
-        .zona-tag-label {
-            display: inline-block;
-            padding: 7px 14px;
-            border: 1.5px solid var(--borde);
-            border-radius: 20px;
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--texto-suave);
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #fff;
-        }
-
-        .zona-tag input:checked + .zona-tag-label {
-            border-color: var(--ocre);
-            background: var(--ocre);
-            color: #fff;
-        }
-
-        /* ── PAGO ── */
-        .pago-box {
-            background: rgba(196,132,58,0.07);
-            border: 1px dashed rgba(196,132,58,0.45);
-            border-radius: 12px;
-            padding: 20px 22px;
-            margin-bottom: 16px;
-        }
-
-        .pago-box .pago-header {
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--ocre);
-            margin-bottom: 10px;
-        }
-
-        .pago-box p {
-            font-size: 0.85rem;
-            color: var(--texto-suave);
-            line-height: 1.6;
-        }
-
+        .zona-tag input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+        .zona-tag-label { display: inline-block; padding: 7px 14px; border: 1.5px solid var(--borde); border-radius: 20px; font-size: 0.82rem; font-weight: 500; color: var(--texto-suave); cursor: pointer; transition: all 0.2s; background: #fff; }
+        .zona-tag input:checked + .zona-tag-label { border-color: var(--ocre); background: var(--ocre); color: #fff; }
+        .pago-box { background: rgba(196,132,58,0.07); border: 1px dashed rgba(196,132,58,0.45); border-radius: 12px; padding: 20px 22px; margin-bottom: 16px; }
+        .pago-box .pago-header { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ocre); margin-bottom: 10px; }
+        .pago-box p { font-size: 0.85rem; color: var(--texto-suave); line-height: 1.6; }
         .pago-box strong { color: var(--texto); }
-
-        /* ── AVISO PAGO PARCIAL ── */
-        .aviso-parcial {
-            background: rgba(196,132,58,0.05);
-            border-left: 3px solid var(--ocre);
-            border-radius: 0 8px 8px 0;
-            padding: 12px 16px;
-            margin-top: 12px;
-            font-size: 0.83rem;
-            color: var(--texto-suave);
-            line-height: 1.6;
-        }
-
+        .aviso-parcial { background: rgba(196,132,58,0.05); border-left: 3px solid var(--ocre); border-radius: 0 8px 8px 0; padding: 12px 16px; margin-top: 12px; font-size: 0.83rem; color: var(--texto-suave); line-height: 1.6; }
         .aviso-parcial strong { color: var(--tierra); }
-
-        /* ── BOTÓN ── */
-        .btn-enviar {
-            width: 100%;
-            background: var(--negro);
-            color: #fff;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 10px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.25s, transform 0.15s;
-            margin-top: 8px;
-        }
-
+        .btn-enviar { width: 100%; background: var(--negro); color: #fff; border: none; padding: 16px 32px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.25s, transform 0.15s; margin-top: 8px; }
         .btn-enviar:hover { background: var(--tierra); transform: translateY(-1px); }
         .btn-enviar:active { transform: translateY(0); }
         .btn-enviar:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-        /* ── MENSAJE ── */
-        .mensaje {
-            display: none;
-            margin-top: 18px;
-            padding: 16px 18px;
-            border-radius: 10px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            text-align: center;
-            animation: fadeUp 0.3s ease;
-            line-height: 1.6;
-        }
-
-        .mensaje.ok {
-            display: block;
-            background: rgba(46,107,62,0.1);
-            border: 1px solid rgba(46,107,62,0.3);
-            color: var(--exito);
-        }
-
-        .mensaje.error {
-            display: block;
-            background: rgba(138,47,47,0.1);
-            border: 1px solid rgba(138,47,47,0.3);
-            color: var(--error);
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(6px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .divisor {
-            border: none;
-            border-top: 1px solid var(--borde);
-            margin: 32px 0;
-        }
-
-        footer {
-            text-align: center;
-            padding: 28px;
-            font-size: 0.8rem;
-            color: var(--texto-suave);
-            border-top: 1px solid var(--borde);
-            background: #ede5d4;
-        }
-
+        .mensaje { display: none; margin-top: 18px; padding: 16px 18px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; text-align: center; animation: fadeUp 0.3s ease; line-height: 1.6; }
+        .mensaje.ok { display: block; background: rgba(46,107,62,0.1); border: 1px solid rgba(46,107,62,0.3); color: var(--exito); }
+        .mensaje.error { display: block; background: rgba(138,47,47,0.1); border: 1px solid rgba(138,47,47,0.3); color: var(--error); }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .divisor { border: none; border-top: 1px solid var(--borde); margin: 32px 0; }
+        footer { text-align: center; padding: 28px; font-size: 0.8rem; color: var(--texto-suave); border-top: 1px solid var(--borde); background: #ede5d4; }
         iframe[name="iframeOculto"] { display: none; }
-
-        @media (max-width: 640px) {
-            .card { padding: 28px 22px; }
-            .row-2 { grid-template-columns: 1fr; }
-            .props-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        @media (max-width: 640px) { .card { padding: 28px 22px; } .row-2 { grid-template-columns: 1fr; } .props-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
@@ -418,9 +97,7 @@
                 method="POST"
                 target="iframeOculto"
             >
-                <!-- ── 1. DATOS PERSONALES ── -->
                 <p class="section-label">01 · Datos personales</p>
-
                 <div class="row-2">
                     <div class="campo">
                         <label>Nombre</label>
@@ -431,7 +108,6 @@
                         <input type="text" name="apellido" placeholder="Ej: Flores" required>
                     </div>
                 </div>
-
                 <div class="row-2">
                     <div class="campo">
                         <label>Correo electrónico</label>
@@ -445,44 +121,22 @@
 
                 <hr class="divisor">
 
-                <!-- ── 2. TIPO DE PROPIEDAD ── -->
                 <p class="section-label">02 · Tipo de propiedad</p>
-
                 <div class="campo">
                     <label>¿Qué tipo de inmueble buscas? (puede elegir varios)</label>
                     <div class="props-grid">
-                        <label class="prop-chip">
-                            <input type="checkbox" name="tipo_casa" value="Casa">
-                            <span class="prop-chip-label"><span class="icon">🏠</span><span>Casa</span></span>
-                        </label>
-                        <label class="prop-chip">
-                            <input type="checkbox" name="tipo_dpto" value="Departamento">
-                            <span class="prop-chip-label"><span class="icon">🏢</span><span>Departamento</span></span>
-                        </label>
-                        <label class="prop-chip">
-                            <input type="checkbox" name="tipo_local" value="Local Comercial">
-                            <span class="prop-chip-label"><span class="icon">🏪</span><span>Local</span></span>
-                        </label>
-                        <label class="prop-chip">
-                            <input type="checkbox" name="tipo_cuarto" value="Cuarto / Habitación">
-                            <span class="prop-chip-label"><span class="icon">🛏️</span><span>Cuarto</span></span>
-                        </label>
-                        <label class="prop-chip">
-                            <input type="checkbox" name="tipo_oficina" value="Oficina">
-                            <span class="prop-chip-label"><span class="icon">💼</span><span>Oficina</span></span>
-                        </label>
-                        <label class="prop-chip">
-                            <input type="checkbox" name="tipo_terreno" value="Terreno">
-                            <span class="prop-chip-label"><span class="icon">📐</span><span>Terreno</span></span>
-                        </label>
+                        <label class="prop-chip"><input type="checkbox" name="tipo_casa" value="Casa"><span class="prop-chip-label"><span class="icon">🏠</span><span>Casa</span></span></label>
+                        <label class="prop-chip"><input type="checkbox" name="tipo_dpto" value="Departamento"><span class="prop-chip-label"><span class="icon">🏢</span><span>Departamento</span></span></label>
+                        <label class="prop-chip"><input type="checkbox" name="tipo_local" value="Local Comercial"><span class="prop-chip-label"><span class="icon">🏪</span><span>Local</span></span></label>
+                        <label class="prop-chip"><input type="checkbox" name="tipo_cuarto" value="Cuarto / Habitación"><span class="prop-chip-label"><span class="icon">🛏️</span><span>Cuarto</span></span></label>
+                        <label class="prop-chip"><input type="checkbox" name="tipo_oficina" value="Oficina"><span class="prop-chip-label"><span class="icon">💼</span><span>Oficina</span></span></label>
+                        <label class="prop-chip"><input type="checkbox" name="tipo_terreno" value="Terreno"><span class="prop-chip-label"><span class="icon">📐</span><span>Terreno</span></span></label>
                     </div>
                 </div>
 
                 <hr class="divisor">
 
-                <!-- ── 3. CANTIDAD Y ZONA ── -->
                 <p class="section-label">03 · Cantidad y zona</p>
-
                 <div class="campo">
                     <label>¿Cuántas propiedades quieres consultar?</label>
                     <div class="num-selector">
@@ -492,7 +146,6 @@
                     </div>
                     <p class="num-hint">Cada propiedad tiene un costo de información. A mayor cantidad, mayor detalle disponible.</p>
                 </div>
-
                 <div class="campo">
                     <label>Zona o barrio de interés</label>
                     <div class="zonas-wrap">
@@ -506,7 +159,6 @@
                         <label class="zona-tag"><input type="checkbox" name="zona_calacoto" value="Calacoto"><span class="zona-tag-label">Calacoto</span></label>
                     </div>
                 </div>
-
                 <div class="campo">
                     <label>Notas adicionales (opcional)</label>
                     <textarea name="notas" placeholder="Presupuesto, habitaciones, piso, requisitos especiales..."></textarea>
@@ -514,9 +166,7 @@
 
                 <hr class="divisor">
 
-                <!-- ── 4. PAGO ── -->
                 <p class="section-label">04 · Referencia de pago</p>
-
                 <div class="pago-box">
                     <p class="pago-header">📋 Instrucciones de pago</p>
                     <p>Realiza tu transferencia a la cuenta <strong>REEMPLAZAR CON DATOS BANCARIOS</strong>.<br>
@@ -525,16 +175,12 @@
                         ℹ️ <strong>Pago parcial:</strong> Si realizaste un pago parcial, recibirás únicamente la información correspondiente a las propiedades cubiertas por el monto abonado. El resto será enviado al confirmar el saldo restante. <strong>¡Agradecemos tu paciencia!</strong>
                     </div>
                 </div>
-
                 <div class="campo">
                     <label>Número de referencia bancaria</label>
                     <input type="text" name="referencia_pago" placeholder="Ej: 0012345678" required>
                 </div>
 
-                <button type="submit" class="btn-enviar" id="btnEnviar">
-                    Enviar solicitud
-                </button>
-
+                <button type="submit" class="btn-enviar" id="btnEnviar">Enviar solicitud</button>
                 <div id="mensaje" class="mensaje"></div>
             </form>
         </div>
@@ -547,56 +193,15 @@
 
     <iframe name="iframeOculto"></iframe>
 
-   <script>
-    // ── Contador de propiedades ──
-    const numInput = document.getElementById('numPropiedades');
-    document.getElementById('btnMenos').addEventListener('click', () => {
-        if(parseInt(numInput.value) > 1) numInput.value = parseInt(numInput.value) - 1;
-    });
-    document.getElementById('btnMas').addEventListener('click', () => {
-        if(parseInt(numInput.value) < 20) numInput.value = parseInt(numInput.value) + 1;
-    });
+    <script>
+        const numInput = document.getElementById('numPropiedades');
+        document.getElementById('btnMenos').addEventListener('click', () => {
+            if(parseInt(numInput.value) > 1) numInput.value = parseInt(numInput.value) - 1;
+        });
+        document.getElementById('btnMas').addEventListener('click', () => {
+            if(parseInt(numInput.value) < 20) numInput.value = parseInt(numInput.value) + 1;
+        });
 
-    // ── Envío ──
-    const form = document.getElementById('formSolicitud');
-    const btn  = document.getElementById('btnEnviar');
-    const msg  = document.getElementById('mensaje');
-
-    form.addEventListener('submit', function(e) {
-        msg.className = 'mensaje';
-
-        const tipos = form.querySelectorAll('input[name^="tipo_"]:checked');
-        if(tipos.length === 0){
-            e.preventDefault();
-            msg.textContent = 'Por favor selecciona al menos un tipo de propiedad.';
-            msg.className = 'mensaje error';
-            return;
-        }
-
-        const zonas = form.querySelectorAll('input[name^="zona_"]:checked');
-        if(zonas.length === 0){
-            e.preventDefault();
-            msg.textContent = 'Por favor selecciona al menos una zona de interés.';
-            msg.className = 'mensaje error';
-            return;
-        }
-
-        btn.textContent = 'Enviando...';
-        btn.disabled = true;
-
-        msg.innerHTML = '✅ Solicitud enviada. Recibirás un correo de confirmación en breve.';
-        msg.className = 'mensaje ok';
-
-        setTimeout(() => {
-            btn.textContent = 'Enviar solicitud';
-            btn.disabled = false;
-            form.reset();
-            numInput.value = 1;
-        }, 3000);
-    });
-</script>
-
-        // ── Envío ──
         const form = document.getElementById('formSolicitud');
         const btn  = document.getElementById('btnEnviar');
         const msg  = document.getElementById('mensaje');
@@ -623,14 +228,15 @@
             btn.textContent = 'Enviando...';
             btn.disabled = true;
 
+            msg.innerHTML = '✅ Solicitud enviada. Recibirás un correo de confirmación en breve.';
+            msg.className = 'mensaje ok';
+
             setTimeout(() => {
-                msg.innerHTML = '✅ Solicitud enviada correctamente.<br>Recibirás un correo de confirmación en breve.';
-                msg.className = 'mensaje ok';
                 btn.textContent = 'Enviar solicitud';
                 btn.disabled = false;
                 form.reset();
                 numInput.value = 1;
-            }, 2000);
+            }, 3000);
         });
     </script>
 </body>
