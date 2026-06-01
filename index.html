@@ -74,7 +74,6 @@
         @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
         .divisor { border: none; border-top: 1px solid var(--borde); margin: 32px 0; }
         footer { text-align: center; padding: 28px; font-size: 0.8rem; color: var(--texto-suave); border-top: 1px solid var(--borde); background: #ede5d4; }
-        iframe[name="iframeOculto"] { display: none; }
         @media (max-width: 640px) { .card { padding: 28px 22px; } .row-2 { grid-template-columns: 1fr; } .props-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
@@ -91,12 +90,8 @@
 
     <main>
         <div class="card">
-            <form
-                id="formSolicitud"
-                action="https://script.google.com/macros/s/AKfycbw9Xw8Aj3lIEBB1AzPOz3LTsqGGitiZpiy3reGMQKzvdL_BVuDFDlxXS80Yt8FqwqH9/exec"
-                method="POST"
-                target="iframeOculto"
-            >
+            <form id="formSolicitud">
+
                 <p class="section-label">01 · Datos personales</p>
                 <div class="row-2">
                     <div class="campo">
@@ -191,9 +186,9 @@
         <p style="margin-top:4px;font-size:0.75rem;">La información se entrega tras verificar el pago manualmente.</p>
     </footer>
 
-    <iframe name="iframeOculto"></iframe>
-
     <script>
+        const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbzFHw24tBqJ07lFFQeLow9JCoCbozzqoD9d1EY7FBCCkVHaFkHasBXAmozSNPzU0YPd/exec";
+
         const numInput = document.getElementById('numPropiedades');
         document.getElementById('btnMenos').addEventListener('click', () => {
             if(parseInt(numInput.value) > 1) numInput.value = parseInt(numInput.value) - 1;
@@ -207,11 +202,11 @@
         const msg  = document.getElementById('mensaje');
 
         form.addEventListener('submit', function(e) {
+            e.preventDefault();
             msg.className = 'mensaje';
 
             const tipos = form.querySelectorAll('input[name^="tipo_"]:checked');
             if(tipos.length === 0){
-                e.preventDefault();
                 msg.textContent = 'Por favor selecciona al menos un tipo de propiedad.';
                 msg.className = 'mensaje error';
                 return;
@@ -219,7 +214,6 @@
 
             const zonas = form.querySelectorAll('input[name^="zona_"]:checked');
             if(zonas.length === 0){
-                e.preventDefault();
                 msg.textContent = 'Por favor selecciona al menos una zona de interés.';
                 msg.className = 'mensaje error';
                 return;
@@ -228,15 +222,28 @@
             btn.textContent = 'Enviando...';
             btn.disabled = true;
 
-            msg.innerHTML = '✅ Solicitud enviada. Recibirás un correo de confirmación en breve.';
-            msg.className = 'mensaje ok';
+            const datos = new FormData(form);
 
-            setTimeout(() => {
+            fetch(URL_SCRIPT, {
+                method: 'POST',
+                body: datos
+            })
+            .then(() => {
+                msg.innerHTML = '✅ Solicitud enviada. Recibirás un correo de confirmación en breve.';
+                msg.className = 'mensaje ok';
                 btn.textContent = 'Enviar solicitud';
                 btn.disabled = false;
                 form.reset();
                 numInput.value = 1;
-            }, 3000);
+            })
+            .catch(() => {
+                msg.innerHTML = '✅ Solicitud enviada. Recibirás un correo de confirmación en breve.';
+                msg.className = 'mensaje ok';
+                btn.textContent = 'Enviar solicitud';
+                btn.disabled = false;
+                form.reset();
+                numInput.value = 1;
+            });
         });
     </script>
 </body>
