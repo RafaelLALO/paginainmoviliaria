@@ -547,15 +547,54 @@
 
     <iframe name="iframeOculto"></iframe>
 
-    <script>
-        // ── Contador de propiedades ──
-        const numInput = document.getElementById('numPropiedades');
-        document.getElementById('btnMenos').addEventListener('click', () => {
-            if(parseInt(numInput.value) > 1) numInput.value = parseInt(numInput.value) - 1;
-        });
-        document.getElementById('btnMas').addEventListener('click', () => {
-            if(parseInt(numInput.value) < 20) numInput.value = parseInt(numInput.value) + 1;
-        });
+   <script>
+    // ── Contador de propiedades ──
+    const numInput = document.getElementById('numPropiedades');
+    document.getElementById('btnMenos').addEventListener('click', () => {
+        if(parseInt(numInput.value) > 1) numInput.value = parseInt(numInput.value) - 1;
+    });
+    document.getElementById('btnMas').addEventListener('click', () => {
+        if(parseInt(numInput.value) < 20) numInput.value = parseInt(numInput.value) + 1;
+    });
+
+    // ── Envío ──
+    const form = document.getElementById('formSolicitud');
+    const btn  = document.getElementById('btnEnviar');
+    const msg  = document.getElementById('mensaje');
+
+    form.addEventListener('submit', function(e) {
+        msg.className = 'mensaje';
+
+        const tipos = form.querySelectorAll('input[name^="tipo_"]:checked');
+        if(tipos.length === 0){
+            e.preventDefault();
+            msg.textContent = 'Por favor selecciona al menos un tipo de propiedad.';
+            msg.className = 'mensaje error';
+            return;
+        }
+
+        const zonas = form.querySelectorAll('input[name^="zona_"]:checked');
+        if(zonas.length === 0){
+            e.preventDefault();
+            msg.textContent = 'Por favor selecciona al menos una zona de interés.';
+            msg.className = 'mensaje error';
+            return;
+        }
+
+        btn.textContent = 'Enviando...';
+        btn.disabled = true;
+
+        msg.innerHTML = '✅ Solicitud enviada. Recibirás un correo de confirmación en breve.';
+        msg.className = 'mensaje ok';
+
+        setTimeout(() => {
+            btn.textContent = 'Enviar solicitud';
+            btn.disabled = false;
+            form.reset();
+            numInput.value = 1;
+        }, 3000);
+    });
+</script>
 
         // ── Envío ──
         const form = document.getElementById('formSolicitud');
